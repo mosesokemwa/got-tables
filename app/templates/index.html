@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="container">
+    <div>
+        <h3 style="color: red;">Click on row to view more details</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Books</th>
+                </tr>
+            </thead>
+            <tbody id="container">
+                {% for person in people %}
+                <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{ person.name if person.name is not none else 'NONE' }}</td>
+                    <td>{{person.books}}</td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+        // jQuery(document).ready(function ($) {
+        //     $(".clickable-row").click(function () {
+        //         console.log($(this).data("href"));
+        //         window.location = $(this).data("href");
+        //     });
+        // });
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                console.log($(this).data("href"));
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+    <script type="text/javascript">
+
+    </script>
+</div>
+{% endblock %}

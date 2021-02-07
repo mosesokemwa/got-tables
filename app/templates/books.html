@@ -9,17 +9,26 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Books</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Number Of Pages</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Country</th>
                 </tr>
             </thead>
             <tbody id="container">
-                {% for person in people %}
+                {% for book in books %}
+                {% for key in book %}
                 <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
                     <th scope="row">{{loop.index}}</th>
-                    <td>{{ person.name if person.name is not none else 'NONE' }}</td>
-                    <td>{{person.books}}</td>
+                    <td>{{ book. if book.name is not none else 'NONE' }}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{key}}</td>
+                    <td>{{book.isbn}}</td>
+                    <td>{{book.isbn}}</td>
                 </tr>
+                {%endfor %}
                 {%endfor %}
             </tbody>
         </table>
@@ -28,9 +37,8 @@
     <script>
         jQuery(document).ready(function ($) {
             $(".clickable-row").click(function () {
-                // window.location = $(this).data("href");
-                window.open($(this).data("href"));
-
+                console.log($(this).data("href"));
+                window.location = $(this).data("href");
             });
         });
     </script>

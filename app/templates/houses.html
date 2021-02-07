@@ -2,7 +2,16 @@
 {% block body %}
 <div class="container">
     <div>
-        <h3 style="color: red;">Click on row to view more details</h3>
+        <h4 style="color: red;">Click on cell with links to view details to view more details</h4>
+        {% if prev %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link" href="{{url_for('houses')}}">Go back</a>
+                </li>
+            </ul>
+        </nav>
+        {%endif %}
     </div>
     <div class="table-responsive">
         <table class="table table-hover ">
@@ -10,31 +19,41 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Full Name</th>
-                    <th scope="col">Books</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">currentLord</th>
+                    <th scope="col">Heir</th>
+                    <th scope="col">coatOfArms</th>
+                    <th scope="col">overlord</th>
                 </tr>
             </thead>
             <tbody id="container">
                 {% for house in houses %}
-                <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
+                <tr>
                     <th scope="row">{{loop.index}}</th>
-                    <td>{{ house.name if house.name is not none else 'NONE' }}</td>
-                    <td>{{house.books}}</td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.name)}}">
+                            {{ house.name if house.name is not none else 'NONE' }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.region)}}">{{ house.region}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.currentLord)}}">{{ house.currentLord}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.heir)}}">{{ house.heir}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.coatOfArms)}}">{{ house.coatOfArms}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('houses',region=house.overlord)}}">{{ house.overlord}}</a>
+                    </td>
                 </tr>
                 {%endfor %}
             </tbody>
         </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                console.log($(this).data("href"));
-                window.location = $(this).data("href");
-            });
-        });
-    </script>
-    <script type="text/javascript">
-
-    </script>
 </div>
 {% endblock %}

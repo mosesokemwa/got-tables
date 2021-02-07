@@ -7,8 +7,8 @@ CHARACTERS_ENDPOINT = "/characters/"
 HOUSES_ENDPOINT = "/houses/"
 
 
-@app.route("/", methods=["GET"])
-def index():
+@app.route("/characters", methods=["GET"])
+def characters():
     people = characters_query(f"{CHARACTERS_ENDPOINT}?page=1")
     return render_template("index.html", people=people)
 

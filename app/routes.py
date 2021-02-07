@@ -26,3 +26,12 @@ def details(id_):
     for k in character_detail:
         print(k)
     return render_template("single.html", details=character_detail, id=id_)
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html'), 500

@@ -31,24 +31,24 @@
                 <tr>
                     <th scope="row">{{loop.index}}</th>
                     <td>
-                        <a href="{{url_for('houses',region=house.name)}}">
-                            {{ house.name if house.name is not none else 'NONE' }}
+                        <a href="{{url_for('houses',name=house.name)}}">
+                            {{ house.name}}
                         </a>
                     </td>
                     <td>
                         <a href="{{url_for('houses',region=house.region)}}">{{ house.region}}</a>
                     </td>
                     <td>
-                        <a href="{{url_for('houses',region=house.currentLord)}}">{{ house.currentLord}}</a>
+                        <a href="{{url_for('houses',currentLord=house.currentLord)}}">{{ house.currentLord}}</a>
                     </td>
                     <td>
-                        <a href="{{url_for('houses',region=house.heir)}}">{{ house.heir}}</a>
+                        <a href="{{url_for('houses',heir=house.heir)}}">{{ house.heir}}</a>
                     </td>
                     <td>
-                        <a href="{{url_for('houses',region=house.coatOfArms)}}">{{ house.coatOfArms}}</a>
+                        <a href="{{url_for('houses',coatOfArms=house.coatOfArms)}}">{{ house.coatOfArms}}</a>
                     </td>
                     <td>
-                        <a href="{{url_for('houses',region=house.overlord)}}">{{ house.overlord}}</a>
+                        <a href="{{url_for('houses',overlord=house.overlord)}}">{{ house.overlord}}</a>
                     </td>
                 </tr>
                 {%endfor %}

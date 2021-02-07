@@ -2,7 +2,16 @@
 {% block body %}
 <div class="container">
     <div>
-        <h3 style="color: red;">Click on row to view more details</h3>
+        <h4 style="color: red;">Click on cell with links to view details to view more details</h4>
+        {% if prev %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link" href="{{url_for('characters')}}">Go back</a>
+                </li>
+            </ul>
+        </nav>
+        {%endif %}
     </div>
     <div class="table-responsive">
         <table class="table table-hover ">
@@ -10,32 +19,40 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Full Name</th>
+                    <th scope="col">Gender</th>
                     <th scope="col">Books</th>
+                    <th scope="col">Aliases</th>
+
                 </tr>
             </thead>
             <tbody id="container">
                 {% for person in people %}
-                <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
+                <tr>
                     <th scope="row">{{loop.index}}</th>
-                    <td>{{ person.name if person.name is not none else 'NONE' }}</td>
-                    <td>{{person.books}}</td>
+                    <td>
+                        <a href="{{url_for('characters',name=person.name)}}">
+                            {{ person.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('characters',gender=person.gender)}}">
+                            {{ person.gender }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('characters',books=person.books)}}">
+                            {{person.books}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('characters',aliases=person.aliases)}}">
+                            {{person.aliases[0]}}
+                        </a>
+                    </td>
                 </tr>
                 {%endfor %}
             </tbody>
         </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                // window.location = $(this).data("href");
-                window.open($(this).data("href"));
-
-            });
-        });
-    </script>
-    <script type="text/javascript">
-
-    </script>
 </div>
 {% endblock %}

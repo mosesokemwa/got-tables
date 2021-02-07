@@ -13,3 +13,6 @@ Game Of Thrones - for fans across the globe
 TODO:
 
 - TBD
+- Add [pagination](https://pythonhosted.org/Flask-paginate/)
+- Add page sizes filtration
+- Make use of flask cache

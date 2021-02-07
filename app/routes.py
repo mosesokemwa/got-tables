@@ -9,8 +9,13 @@ BOOKS_ENDPOINT="/books"
 
 @app.route("/characters", methods=["GET"])
 def characters():
-    people = characters_query(f"{CHARACTERS_ENDPOINT}?page=1")
-    return render_template("characters.html", people=people)
+    params =''
+    prev=False
+    if request.query_string:
+        params = request.query_string.decode()
+        prev=True
+    people = characters_query(f"{CHARACTERS_ENDPOINT}?page=1&{params}")
+    return render_template("characters.html", people=people, prev=prev)
 
 
 @app.route("/houses", methods=["GET"])
@@ -26,8 +31,13 @@ def houses():
 
 @app.route("/books", methods=["GET"])
 def books():
-    b = books_query(f"{BOOKS_ENDPOINT}?page=1")
-    return render_template("books.html", details=b)
+    params =''
+    prev=False
+    if request.query_string:
+        params = request.query_string.decode()
+        prev=True
+    b = books_query(f"{BOOKS_ENDPOINT}?page=1&{params}")
+    return render_template("books.html", books=b, prev=prev)
 
 @app.route("/details/<id_>", methods=["GET"])
 def details(id_):

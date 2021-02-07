@@ -2,7 +2,16 @@
 {% block body %}
 <div class="container">
     <div>
-        <h3 style="color: red;">Click on row to view more details</h3>
+        <h4 style="color: red;">Click on cell with links to view details to view more details</h4>
+        {% if prev %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    <a class="page-link" href="{{url_for('books')}}">Go back</a>
+                </li>
+            </ul>
+        </nav>
+        {%endif %}
     </div>
     <div class="table-responsive">
         <table class="table table-hover ">
@@ -19,31 +28,32 @@
             </thead>
             <tbody id="container">
                 {% for book in books %}
-                {% for key in book %}
-                <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
+                <tr>
                     <th scope="row">{{loop.index}}</th>
-                    <td>{{ book. if book.name is not none else 'NONE' }}</td>
-                    <td>{{book.isbn}}</td>
-                    <td>{{key}}</td>
-                    <td>{{book.isbn}}</td>
-                    <td>{{book.isbn}}</td>
+                    <td>
+                        <a href="{{url_for('books',name=book.name)}}">
+                        {{ book.name }}
+                    </a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('books',isbn=book.isbn)}}">{{book.isbn}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('books',mediaType=book.mediaType)}}">{{book.mediaType}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('books',authors=book.authors[0])}}">{{book.authors[0]}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('books',released=book.released)}}">{{book.released}}</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('books',country=book.country)}}">{{book.country}}</a>
+                    </td>
                 </tr>
-                {%endfor %}
                 {%endfor %}
             </tbody>
         </table>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                console.log($(this).data("href"));
-                window.location = $(this).data("href");
-            });
-        });
-    </script>
-    <script type="text/javascript">
-
-    </script>
 </div>
 {% endblock %}

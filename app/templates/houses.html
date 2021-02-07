@@ -14,11 +14,11 @@
                 </tr>
             </thead>
             <tbody id="container">
-                {% for person in people %}
+                {% for house in houses %}
                 <tr class='clickable-row' data-href="{{url_for('details',id_=loop.index)}}">
                     <th scope="row">{{loop.index}}</th>
-                    <td>{{ person.name if person.name is not none else 'NONE' }}</td>
-                    <td>{{person.books}}</td>
+                    <td>{{ house.name if house.name is not none else 'NONE' }}</td>
+                    <td>{{house.books}}</td>
                 </tr>
                 {%endfor %}
             </tbody>

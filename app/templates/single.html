@@ -2,77 +2,26 @@
 {% block body %}
 <div class="container">
   <table class="table table-hover">
-    <tbody>
-      {% for key in details%}
+    <thead>
+    {% for key in details%}
       <tr>
-        <th>{{ key }}</th>
-        {% if details[key] == '[]' %}
-        <th>Null</th>
-        {% else %}
-        <th>{{ details[key] }}</th>
-        {% endif %}
-        {% if key in fav_key %}
-        <th>
-          <span onclick="remove_fav('{{id}}','{{ key }}', '{{details[key]}}')">
-            <i id="heart-{{key}}" style="color: red;" class="fa fa-heart"></i></span>
-        </th>
-        {% else %}
-        <td>
-          <form>
-            <button onclick="add_fav('{{id}}','{{ key }}', '{{details[key]}}')" id="btn" value="true">
-              <span><i id="heart-{{key}}" class="fa fa-heart"></i></span>
-            </button>
-          </form>
-        </td>
-        {% endif %}
+        <th scope="col">#</th>
+        <th scope="col">{{ key }}</th>
       </tr>
+      {% endfor%}
+    </thead>
+    <tbody id="container">
+      {% for key in details%}
+      <th scope="row">{{loop.index}}</th>
+        <tr> {% if details[key] == '[]' %}
+          Null
+          {% else %}
+          <th>{{ details[key] }}</th>
+          {% endif %}
+        </tr>
       {% endfor%}
     </tbody>
   </table>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-  <script>
-    function add_fav(character_id, character_key, character_name) {
-      event.preventDefault();
-      const jsonData = JSON.stringify({ 'character_id': character_id, 'character_key': character_key, 'character_name': character_name });
-      console.log($(this));
-      $(this).click(
-        function () {
-          $.postJSON("/store", jsonData, 'POST')
-            .fail(function (res) {
-              console.log(res);
-            })
-            .always(function () {
-              document.getElementById("heart-" + character_key).style.color = "red";
-            });
-        });
-
-    }
-    function remove_fav(character_id, character_key, character_name) {
-
-      event.preventDefault();
-      const jsonData = JSON.stringify({ 'character_id': character_id, 'character_key': character_key, 'character_name': character_name });
-      console.log($(this));
-      $(this).click(
-        function () {
-          $.postJSON("/store", jsonData, 'DELETE')
-            .fail(function (res) {
-              console.log(res);
-            })
-            .always(function () {
-              document.getElementById("heart-" + character_key).style.color = "none";
-            });
-        });
-    }
-    $.postJSON = function (url, data, method, callback) {
-      return jQuery.ajax({
-        'type': method,
-        'url': url,
-        'contentType': 'application/json; charset=utf-8',
-        'data': data,
-        'dataType': 'json',
-        'success': callback
-      });
-    };
-  </script>
 </div>
 {% endblock %}
